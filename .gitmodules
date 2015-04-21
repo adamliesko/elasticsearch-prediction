@@ -1,0 +1,3 @@
+[submodule "elasticsearch-prediction-spark"]
+	path = elasticsearch-prediction-spark
+	url = git@github.com:sdhu/elasticsearch-prediction-spark.git
