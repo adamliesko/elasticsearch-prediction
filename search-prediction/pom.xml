@@ -70,7 +70,16 @@
             <groupId>com.mahisoft.elasticsearchprediction</groupId>
             <artifactId>search-prediction-weka-impl</artifactId>
             <version>1.0</version>
-        </dependency>
+					</dependency>
+
+		<dependency>
+			<groupId>com.sdhu</groupId>
+			<artifactId>elasticsearchprediction.spark</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/elasticsearchprediction-spark-assembly-0.1.jar</systemPath>
+		</dependency>
+
     </dependencies>
 
     <build>

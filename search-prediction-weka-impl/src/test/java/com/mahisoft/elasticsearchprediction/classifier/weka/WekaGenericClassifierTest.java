@@ -496,7 +496,7 @@ public class WekaGenericClassifierTest {
 			when(dataProperties.getValue(CLASS_LABEL)).thenReturn(CLASSIFIER);
 
 			wekaGenericClassifier.loadClassifier();
-			wekaGenericClassifier.saveModel("");
+			wekaGenericClassifier.saveModel("/tmp/t1.model");
 			fail(EXCEPTION_MSG);
 		} catch (ModelException e) {
 			LOGGER.info(e);
@@ -531,7 +531,7 @@ public class WekaGenericClassifierTest {
 			wekaGenericClassifier.loadClassifier();
 			wekaGenericClassifier.loadData(new File(TEST_FILE));
 			wekaGenericClassifier.trainModel();
-			wekaGenericClassifier.saveModel("");
+			wekaGenericClassifier.saveModel("/tmp/t.model");
 			fail(EXCEPTION_MSG);
 		} catch (ModelException e) {
 			LOGGER.info(e);

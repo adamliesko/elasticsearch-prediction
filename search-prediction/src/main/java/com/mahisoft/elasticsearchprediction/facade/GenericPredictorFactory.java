@@ -21,6 +21,8 @@ import com.mahisoft.elasticsearchprediction.plugin.engine.weka.WekaPredictorEngi
 import com.mahisoft.elasticsearchprediction.plugin.exception.FileModelException;
 import com.mahisoft.elasticsearchprediction.plugin.utils.PluginProperties;
 
+import com.sdhu.elasticsearchprediction.spark.SparkLinear_PredictorEngine;
+
 public class GenericPredictorFactory {
 
 	private GenericPredictorFactory() {
@@ -28,12 +30,16 @@ public class GenericPredictorFactory {
 
 	public static PredictorEngine getPredictor(PluginProperties pluginProperties) throws FileModelException {
 		String genericClassifierClass = pluginProperties.getClassifier();
+        String modelPath = pluginProperties.getModelPath();
 
 		if (genericClassifierClass != null) {
 
+  //          if (genericClassifierClass.startsWith("spark"))
+  //              return SparkLinear_PredictorEngine(modelPath, genericClassiferClass);
+            
 			switch (genericClassifierClass) {
 			case "weka":
-				return new WekaPredictorEngine(pluginProperties.getModelPath());
+				return new WekaPredictorEngine(modelPath);
 			case "another_lib":
 				return null;
 			default:
