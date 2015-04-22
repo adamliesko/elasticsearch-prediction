@@ -58,6 +58,7 @@ public class ElasticsearchClassifierFacade {
 			String[] filter = fields.split(",");
 
 			dataFile = DataSetUtil.filterInstances(filter, dataFile);
+            LOGGER.warn(dataFile.getAbsolutePath());
 		}
 		
 		try {

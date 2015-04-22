@@ -33,7 +33,7 @@ public class DataSetUtil {
 	public static File filterInstances(String[] filter, File dataFile) throws IOException {
 
 		String line, filterLine;
-		String filteredFileName = getfilterFileName(dataFile.getAbsolutePath());
+		String filteredFileName = getfilterFileName(dataFile.getPath());
 		File filteredFile = new File(filteredFileName);
 
 		BufferedWriter bw = null;
