@@ -20,7 +20,7 @@ import com.mahisoft.elasticsearchprediction.classifier.GenericClassifier;
 import com.mahisoft.elasticsearchprediction.classifier.weka.WekaGenericClassifier;
 import com.mahisoft.elasticsearchprediction.utils.DataProperties;
 
-import com.sdhu.elasticsearchprediction.spark.SparkLinear_Trainer;
+import com.sdhu.elasticsearchprediction.spark.Spark_Trainer;
 
 public class GenericClassifierFactory {
 
@@ -28,14 +28,16 @@ public class GenericClassifierFactory {
 	}
 
 	public static GenericClassifier getClassifier(DataProperties dataProperties) {
-		String genericClassifierClass = dataProperties.getValue("classifier.lib");
+		String clf_type = dataProperties.getValue("classifier.lib");
 
-		if (genericClassifierClass != null) {
+		if (clf_type != null) {
 
-            if (genericClassifierClass.startsWith("spark")) 
-                return (new SparkLinear_Trainer(genericClassifierClass));
+            if (clf_type.startsWith("spark")) {
+                Spark_Trainer spt = new Spark_Trainer(dataProperties);
+                return spt.getGenericClassifier();
+            }
 
-			switch (genericClassifierClass) {
+			switch (clf_type) {
 			case "weka":
 				return new WekaGenericClassifier();
 			case "another_lib":
