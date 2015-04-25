@@ -1,17 +1,14 @@
 elasticsearch-prediction
 ======================
 
-The project consists of two parts: generator and plugin.
-
 ##GENERATOR 
 
-This part of the code will be on charge of reading a CSV file and with the contents generate:
+Generator protion of the code trains a model and indexes a csv into elasticsearch that will generate:
 
  * Trained model with the given algorith=m.
  * Elasticsearch index with the corresponding types and values.
  * Configuration that will be used by the plugin.
 
-Usage: = 
 
 ### 1. Configure all the options in a new properties file:
 
@@ -139,6 +136,8 @@ sbt assembly
 ```
 cd search-prediction-weka-impl
 
+mkdir lib
+
 cp search-prediction-api/target/search-prediction-api-1.0.jar search-prediction/lib
 
 mvn clean
@@ -149,13 +148,15 @@ mvn package
 ##### Compile Generator
 
 ```
-cd search-prediction
+cd search-prediction-example
 
-cp ../search-prediction-api/target/search-prediction-api-1.0.jar lib
+mkdir lib
 
-cp ../search-prediction-weka-impl/target/search-prediction-weka-impl-1.0.jar lib
+cp ../search-prediction-api/target/search-prediction-api-1.0.jar ./lib
 
-cp ../elasticsearch-prediction-spark/target/scala-2.10/elasticsearchprediction-spark-assembly-0.1.jar ../search-prediction/lib/
+cp ../search-prediction-weka-impl/target/search-prediction-weka-impl-1.0.jar ./lib
+
+cp ../elasticsearch-prediction-spark/target/scala-2.10/elasticsearchprediction-spark-assembly-0.1.jar ./lib/
 
 mvn install:install-file -Dfile=lib/search-prediction-weka-impl-1.0.jar -DgroupId=com.mahisoft.elasticsearchprediction -DartifactId=search-prediction-weka-impl -Dversion=1.0 -Dpackaging=jar
 
@@ -177,9 +178,8 @@ If there are no errors, then the model and index were generated without any issu
 
 ##PLUGIN
 
-This will use the generated model and mapping to score documents in the created index.
+This will use the generated model and mapping to score documents in the created index to generate a plugin that can be installed into elasticsearch to generate real time evaluation of the scoring function.
 
-Usage:
 
 ### 1. Configure all the options in the plugin.properties file:
 
@@ -233,4 +233,5 @@ sudo service elasticsearch restart
   }
 }
 ```
+
 Make sure to use the following url: `http://host:port/indexname/_default_`
