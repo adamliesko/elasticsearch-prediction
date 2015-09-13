@@ -1,3 +1,6 @@
 [submodule "elasticsearch-prediction-spark"]
 	path = elasticsearch-prediction-spark
 	url = git@github.com:sdhu/elasticsearch-prediction-spark.git
+[submodule "elasticsearch-prediction-pmml"]
+	path = elasticsearch-prediction-pmml
+	url = git@github.com:sdhu/elasticsearch-prediction-pmml.git
