@@ -130,6 +130,12 @@ sbt assembly
 
 ```
 
+#### Compile PMML Evaluator
+```
+cd elasticsearch-prediction-pmml
+
+sbt assembly
+```
 
 #### Compile Weka Implementation
 
@@ -158,11 +164,15 @@ cp ../search-prediction-weka-impl/target/search-prediction-weka-impl-1.0.jar ./l
 
 cp ../elasticsearch-prediction-spark/target/scala-2.10/elasticsearchprediction-spark-assembly-0.1.jar ./lib/
 
+cp ../elasticsearch-prediction-pmml/target/scala-2.10/elasticsearchprediction-pmml-assembly-0.1.jar ./lib/
+
 mvn install:install-file -Dfile=lib/search-prediction-weka-impl-1.0.jar -DgroupId=com.mahisoft.elasticsearchprediction -DartifactId=search-prediction-weka-impl -Dversion=1.0 -Dpackaging=jar
 
 mvn install:install-file -Dfile=lib/search-prediction-api-1.0.jar -DgroupId=com.mahisoft.elasticsearchprediction -DartifactId=search-prediction-api -Dversion=1.0 -Dpackaging=jar
 
 mvn install:install-file -Dfile=lib/elasticsearchprediction-spark-assembly-0.1.jar -DgroupId=com.sdhu -DartifactId=elasticsearchprediction-spark -Dversion=0.1 -Dpackaging=jar
+
+mvn install:install-file -Dfile=lib/elasticsearchprediction-pmml-assembly-0.1.jar -DgroupId=com.sdhu -DartifactId=elasticsearchprediction-pmml -Dversion=0.1 -Dpackaging=jar
 
 mvn clean
 
@@ -186,7 +196,7 @@ This will use the generated model and mapping to score documents in the created 
 * modelPath = Path where the generated model is.
 * mapping = Contents of the mapping file generated
 * classifier.lib = Which library is gonna be used to make the classification. Right now it only has weka.
-
+* targetName = the column name of the predicted score should match  *data.column.label* if trained with spark or weka module
 
 Example:
 
@@ -194,6 +204,7 @@ Example:
 modelPath=/path/to/model/file 
 mapping=age:double,workclass:string,fnlwgt:double,education:string,education_num:double,marital_status:string,occupation:string,relationship:string,race:string,sex:string,capital_gain:double,capital_loss:double,hours-per-week:double,native-country:string
 classifier.lib=weka
+targetName=probability
 ```
 
 ### 2. Install plugin:
