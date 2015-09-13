@@ -16,12 +16,16 @@
 
 package com.mahisoft.elasticsearchprediction.facade;
 
+import com.mahisoft.elasticsearchprediction.plugin.domain.IndexAttributeDefinition;
 import com.mahisoft.elasticsearchprediction.plugin.engine.PredictorEngine;
 import com.mahisoft.elasticsearchprediction.plugin.engine.weka.WekaPredictorEngine;
 import com.mahisoft.elasticsearchprediction.plugin.exception.FileModelException;
 import com.mahisoft.elasticsearchprediction.plugin.utils.PluginProperties;
 
 import com.sdhu.elasticsearchprediction.spark.Spark_PredictorEngine;
+import com.sdhu.elasticsearchprediction.pmml.PMML_PredictorEngine;
+
+import java.util.List;
 
 public class GenericPredictorFactory {
 
@@ -31,6 +35,9 @@ public class GenericPredictorFactory {
 	public static PredictorEngine getPredictor(PluginProperties pluginProperties) throws FileModelException {
 		String clf_type = pluginProperties.getClassifier();
         String modelPath = pluginProperties.getModelPath();
+        String targetName = pluginProperties.getTargetName();
+        
+        List<IndexAttributeDefinition> mappings = pluginProperties.getMapping();
         
         if (clf_type != null) {
             if (clf_type.startsWith("spark")) {
@@ -41,8 +48,9 @@ public class GenericPredictorFactory {
 			switch (clf_type) {
 			case "weka":
 				return new WekaPredictorEngine(modelPath);
-			case "another_lib":
-				return null;
+			case "pmml":
+                PMML_PredictorEngine p = new PMML_PredictorEngine(modelPath, mappings, targetName);
+                return p.getPM();
 			default:
 				return null;
 			}

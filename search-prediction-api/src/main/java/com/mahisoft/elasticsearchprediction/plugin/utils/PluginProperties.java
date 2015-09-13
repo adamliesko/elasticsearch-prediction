@@ -43,11 +43,14 @@ public class PluginProperties {
     private String modelPath;
 
     private String classifier;
+   
+    private String targetName;
 
-    public PluginProperties(String modelPath, String classifier, List<IndexAttributeDefinition> mapping) {
+    public PluginProperties(String modelPath, String classifier, List<IndexAttributeDefinition> mapping, String tn) {
         this.modelPath = modelPath;
         this.mapping = mapping;
         this.classifier = classifier;
+        this.targetName = tn;
     }
 
     public static PluginProperties getInstance() throws IOException {
@@ -60,6 +63,7 @@ public class PluginProperties {
             String modelPath = propertiesFile.getProperty("modelPath");
             String mappingStr = propertiesFile.getProperty("mapping");
             String classifier = propertiesFile.getProperty("classifier.lib");
+            String targetName = propertiesFile.getProperty("targetName");
             List<IndexAttributeDefinition> mapping = new CopyOnWriteArrayList<IndexAttributeDefinition>();
 
             for (String definition : mappingStr.split(",")) {
@@ -74,7 +78,7 @@ public class PluginProperties {
             }
 
             LOGGER.info("Done loading properties");
-            pluginProperties = new PluginProperties(modelPath, classifier, mapping);
+            pluginProperties = new PluginProperties(modelPath, classifier, mapping, targetName);
         }
         return pluginProperties;
     }
@@ -89,6 +93,11 @@ public class PluginProperties {
     
     public String getClassifier() {
 		return classifier;
+	}
+
+
+    public String getTargetName() {
+		return targetName;
 	}
 
 	public List<IndexAttributeDefinition> getMapping() {
