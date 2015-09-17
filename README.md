@@ -1,6 +1,11 @@
 elasticsearch-prediction
 ======================
 
+NOTE: 
+* _This is highly experimental code as a proof of concept, so there are many many areas of improvements, and bugs. Use for fun only. A more complete open source version will be released later._
+* In terms of the backend for evaluating a given model in elasticsearch, it is independent of Spark, Weka or R. This is just to show that the integration is possible to train a model in any desired ML framework
+
+
 ##GENERATOR 
 
 Generator protion of the code trains a model and indexes a csv into elasticsearch that will generate:
